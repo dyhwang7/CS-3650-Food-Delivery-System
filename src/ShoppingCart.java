@@ -15,9 +15,8 @@ public class ShoppingCart {
 		cartID = caID;
 		customerID = cuID;
 	}
-	public ShoppingCart createCart(Connection c, int customerID)
+	public void createCart(Connection c, int customerID)
 	{
-		ShoppingCart cart = new ShoppingCart();
 		PreparedStatement statement;
 		try {
 			String sql = "SELECT * FROM shoppingCart WHERE customerID = ?";
@@ -26,9 +25,9 @@ public class ShoppingCart {
 			ResultSet result = statement.executeQuery(); 			
 			if (result.next()) 
 			{
-				cart.setCartID(result.getInt("cartID"));
-				System.out.println("CART ID = " + cart.cartID);
-				cart.setCustomerID(customerID);
+				this.setCartID(result.getInt("cartID"));
+				System.out.println("CART ID = " + this.cartID);
+				this.setCustomerID(result.getInt("customerID"));
 			}
 			else
 			{
@@ -42,17 +41,16 @@ public class ShoppingCart {
 				result = statement.executeQuery(); 			
 				if (result.next()) 
 				{
-					cart.setCartID(result.getInt("cartID"));
-					System.out.println("CART2 ID = " + cart.cartID);
-					cart.setCustomerID(customerID);
-				}				
-				
+					this.setCartID(result.getInt("cartID"));
+					System.out.println("CART2 ID = " + this.cartID);
+					this.setCustomerID(result.getInt("customerID"));
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return cart;
+		
 	}
 	public void emptyCart(Connection c, int cartID)
 	{
@@ -148,25 +146,27 @@ public class ShoppingCart {
 		}
 		return total;
 	}
-//	public int getRestaurantID(Connection c)
-//	{
-//		int restaurantID = 0;
-//		String sql = "SELECT restaurantID FROM Item I, shoppingCart S, cartItem C WHERE S.customerID like ? "
-//				+ "AND S.cartID = C.cartID AND C.itemID = I.itemID";
-//		PreparedStatement statement = null;
-//		try {
-//			statement = c.prepareStatement(sql);
-//			statement.setInt(1,customerID);			
-//			ResultSet result = statement.executeQuery(); 
-//			while (result.next()) {
-//				total += result.getDouble("itemPrice");
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return restaurantID;		
-//	}
+	public int getRestaurantID(Connection c)
+	{
+		int restaurantID = 0;
+		String sql = "SELECT restaurantID FROM Menu M, menuItem MI, shoppingCart S, cartItem C WHERE S.customerID = ? "
+				+ "AND S.cartID = C.cartID AND C.itemID = MI.itemID AND MI.menuID = M.menuID";
+		PreparedStatement statement = null;
+		System.out.println("r1:"+ this.getCartID() + " " +this.getCustomerID());
+		try {
+			statement = c.prepareStatement(sql);
+			statement.setInt(1,this.getCustomerID());			
+			ResultSet result = statement.executeQuery(); 
+			if (result.next()) {
+				System.out.println("RESTAURANTID: " + result.getInt("restaurantID"));
+				restaurantID = result.getInt("restaurantID");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return restaurantID;		
+	}
 	public int getCartID() {
 		return cartID;
 	}

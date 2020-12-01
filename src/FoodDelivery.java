@@ -48,8 +48,9 @@ public class FoodDelivery {
 		}
 		//s.removeFromCart(c, 1, 3);
 		System.out.println("Total = " + s.getCartTotal(c, 3));
-		s.createCart(c, 4);
-		s.emptyCart(c, 1);
+		s.createCart(c, 3);
+		//s.emptyCart(c, 1);
+		System.out.println(s.getRestaurantID(c));
 		ac.endConnection();
 		
 		
