@@ -1,29 +1,69 @@
 import java.sql.*;
+import java.util.*;
 public class Restaurant {
 	int restaurantID;
 	String restaurantName;
 	String restaurantAddress;
 	boolean operational;
 	
-
-	public void showAllRestaurants(Connection c) {
+	Restaurant(){
+		restaurantID = 0;
+		restaurantName = "";
+		restaurantAddress = "";
+		operational = false; 
+	}
+	
+	Restaurant(int rID, String rName, String rAddress, boolean o)
+	{
+		restaurantID = rID;
+		restaurantName = rName;
+		restaurantAddress = rAddress;
+		operational = o;
+	}
+	
+	public Restaurant getRestaurant(Connection c, int rID)
+	{
+		String sql = "SELECT * FROM Restaurant WHERE restaurantID like ?";
+		Restaurant r= new Restaurant();
+		
+		PreparedStatement statement = null;
+		try {
+			statement = c.prepareStatement(sql);
+			statement.setInt(1,rID);	
+			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
+			while (result.next()) {
+				r.restaurantID=result.getInt("restaurantID");
+				r.restaurantName = result.getString("restaurantName");
+				r.restaurantAddress = result.getString("restaurantAddress");
+				r.operational = changeToBool(result.getString("operational"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return r;	
+	}
+	
+	public ArrayList<Restaurant> showAllRestaurants(Connection c) {
+		ArrayList<Restaurant> showAll = new ArrayList<Restaurant>();
 		String sql = "SELECT * FROM Restaurant";
 		PreparedStatement statement = null;
 		try {
 			statement = c.prepareStatement(sql);			
 			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
 			while (result.next()) {
-				restaurantName = result.getString("restaurantName");	//could create a list or set of Restaurants and save info
-				restaurantAddress = result.getString("restaurantAddress");
-				System.out.println(restaurantName + " " + restaurantAddress + " ");
+				showAll.add(new Restaurant(result.getInt("restaurantID"),result.getString("restaurantName"),
+						result.getString("restaurantAddress"), result.getBoolean("operational")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
+		return showAll; 
 	}
-	
-	public void searchRestaurant(Connection c, String s){
+
+	public ArrayList<Restaurant> searchRestaurant(Connection c, String s){
+		ArrayList<Restaurant> searchResult = new ArrayList<Restaurant>();
 		String sql = "SELECT * FROM Restaurant WHERE restaurantName like ?";
 		
 		PreparedStatement statement = null;
@@ -32,15 +72,23 @@ public class Restaurant {
 			statement.setString(1,s);			
 			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
 			while (result.next()) {
-				restaurantName = result.getString("restaurantName");
-				restaurantAddress = result.getString("restaurantAddress");
-				System.out.println(restaurantName + " " + restaurantAddress + " ");
+				searchResult.add(new Restaurant(result.getInt("restaurantID"),result.getString("restaurantName"),
+						result.getString("restaurantAddress"), result.getBoolean("operational")));
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		return searchResult;
 	}
-
+	public boolean changeToBool(String s)
+	{
+		boolean b;
+		if (s.equals("yes"))
+			b = true;
+		else
+			b = false;
+		return b;
+	}
 }
