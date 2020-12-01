@@ -13,6 +13,7 @@ public class Order {
 //	public Order createOrder(Connection c, ShoppingCart s)
 //	{
 //		Order o = new Order();
+//		int restaurantID = s.getRestaurantID(c, s.getCustomerID());
 //		PreparedStatement statement;
 //		try {
 //				String sql = "INSERT INTO Order (customerID, RestaurantID) VALUES (?,?)";
@@ -39,7 +40,7 @@ public class Order {
 //		}
 //		return o;	
 //	}
-	
+//	
 	public int getOrderID() {
 		return orderID;
 	}
