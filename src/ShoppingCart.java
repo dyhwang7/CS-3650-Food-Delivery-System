@@ -1,8 +1,8 @@
 import java.sql.*;
 import java.util.ArrayList;
 public class ShoppingCart {
-	int cartID;
-	int customerID;
+	private int cartID;
+	private int customerID;
 	
 	ShoppingCart()
 	{

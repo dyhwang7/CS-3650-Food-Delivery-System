@@ -1,9 +1,9 @@
 import java.sql.*;
 public class Driver {
-	int driverID;
-	String licenseNumber;
-	String licensePlate;
-	String carModel;
+	private int driverID;
+	private String licenseNumber;
+	private String licensePlate;
+	private String carModel;
 	public Driver()
 	{
 		

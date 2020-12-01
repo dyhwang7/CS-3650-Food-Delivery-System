@@ -1,9 +1,9 @@
 
 public class Item {
-	int itemID;
-	String itemDescription;
-	double itemPrice;
-	String itemName;
+	private int itemID;
+	private String itemDescription;
+	private double itemPrice;
+	private String itemName;
 	
 	Item (int iID, String iDescription, double iPrice, String iName)
 	{
