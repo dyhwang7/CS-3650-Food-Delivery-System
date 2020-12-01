@@ -148,6 +148,25 @@ public class ShoppingCart {
 		}
 		return total;
 	}
+//	public int getRestaurantID(Connection c)
+//	{
+//		int restaurantID = 0;
+//		String sql = "SELECT restaurantID FROM Item I, shoppingCart S, cartItem C WHERE S.customerID like ? "
+//				+ "AND S.cartID = C.cartID AND C.itemID = I.itemID";
+//		PreparedStatement statement = null;
+//		try {
+//			statement = c.prepareStatement(sql);
+//			statement.setInt(1,customerID);			
+//			ResultSet result = statement.executeQuery(); 
+//			while (result.next()) {
+//				total += result.getDouble("itemPrice");
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return restaurantID;		
+//	}
 	public int getCartID() {
 		return cartID;
 	}

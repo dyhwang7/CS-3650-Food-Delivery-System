@@ -1,6 +1,20 @@
 import java.sql.*;
 public class Driver {
-	public void printDriver(Connection c)
+	int driverID;
+	String licenseNumber;
+	String licensePlate;
+	String carModel;
+	public Driver()
+	{
+		
+	}
+	public Driver(int driverID, String licenseNumber, String licensePlate, String carModel) {
+		this.driverID = driverID;
+		this.licenseNumber = licenseNumber;
+		this.licensePlate = licensePlate;
+		this.carModel = carModel;
+	}
+	public void getDriver(Connection c)
 	{
 		int count = 0;
 		try {
@@ -26,13 +40,40 @@ public class Driver {
 			statement.setInt(1,randDriver);			
 			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
 			while (result.next()) {
-				String licensePlate = result.getString("licensePlate");
-				String carModel = result.getString("carModel");
-				System.out.println(licensePlate + " " + carModel + " ");
+				System.out.println(result.getInt("driverID"));
+				this.setDriverID(result.getInt("driverID"));
+				this.setLicenseNumber(result.getString("licenseNumber"));
+				this.setLicensePlate(result.getString("licensePlate"));
+				this.setCarModel(result.getString("carModel"));
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public int getDriverID() {
+		return driverID;
+	}
+	public void setDriverID(int driverID) {
+		this.driverID = driverID;
+	}
+	public String getLicenseNumber() {
+		return licenseNumber;
+	}
+	public void setLicenseNumber(String licenseNumber) {
+		this.licenseNumber = licenseNumber;
+	}
+	public String getLicensePlate() {
+		return licensePlate;
+	}
+	public void setLicensePlate(String licensePlate) {
+		this.licensePlate = licensePlate;
+	}
+	public String getCarModel() {
+		return carModel;
+	}
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
 	}
 }

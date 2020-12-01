@@ -29,7 +29,8 @@ public class FoodDelivery {
 			System.out.println(customer.getDeliveryAddress() + " " + customer.getPhoneNum() + " " + customer.getCustomerName() + " " + customer.getCustomerEmail() + customer.getCustomerPassword());
 			System.out.println(verified);
 			Driver d = new Driver ();
-			d.printDriver(c);
+			d.getDriver(c);
+			System.out.println(d.getDriverID() + " " + d.getLicenseNumber() + " " + d.getLicensePlate() + " " + d.getCarModel());
 		Menu m = new Menu();
 		ArrayList <Item> i = new ArrayList<Item>(); 
 		i = m.getMenuItem(c,4);

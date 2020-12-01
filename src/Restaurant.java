@@ -81,7 +81,7 @@ public class Restaurant {
 		}
 		return searchResult;
 	}
-	public boolean changeToBool(String s)
+	public static boolean changeToBool(String s)
 	{
 		boolean b;
 		if (s.equals("Yes"))
