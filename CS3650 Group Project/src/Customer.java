@@ -34,14 +34,14 @@ public class Customer {
 		}
 	}
 	
-	public boolean customerAuthentication(Connection c, int id, String pw)
+	public boolean customerAuthentication(Connection c, String email, String pw)
 	{
-		String sql = "SELECT customerPassword FROM Customer WHERE customerID= ?";
+		String sql = "SELECT customerPassword FROM Customer WHERE customerEmail= ?";
 		String customerPassword = "";
 		PreparedStatement statement = null;
 		try {
 			statement = c.prepareStatement(sql);
-			statement.setInt(1,id);			
+			statement.setString(1,email);			
 			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all
 			while (result.next()) {
 				customerPassword = result.getString("customerPassword");
