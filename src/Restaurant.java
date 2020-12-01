@@ -1,10 +1,10 @@
 import java.sql.*;
 import java.util.*;
 public class Restaurant {
-	int restaurantID;
-	String restaurantName;
-	String restaurantAddress;
-	boolean operational;
+	private int restaurantID;
+	private String restaurantName;
+	private String restaurantAddress;
+	private boolean operational;
 	
 	Restaurant(){
 		restaurantID = 0;
@@ -84,7 +84,12 @@ public class Restaurant {
 	public static boolean changeToBool(String s)
 	{
 		boolean b;
-		if (s.equals("Yes"))
+		if (s == null)
+		{
+			b = false;
+			return false;
+		}
+		else if (s.equals("Yes"))
 			b = true;
 		else
 			b = false;

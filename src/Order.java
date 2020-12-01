@@ -4,43 +4,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Order {
-	int orderID;
-	int customerID;
-	int restaurantID;
-	boolean orderConfirmation;
-	double tipAmount;
+	private int orderID;
+	private int customerID;
+	private int restaurantID;
+	private boolean orderConfirmation;
+	private double tipAmount;
 	
-//	public Order createOrder(Connection c, ShoppingCart s)
-//	{
-//		Order o = new Order();
-//		int restaurantID = s.getRestaurantID(c, s.getCustomerID());
-//		PreparedStatement statement;
-//		try {
-//				String sql = "INSERT INTO Order (customerID, RestaurantID) VALUES (?,?)";
-//				statement = c.prepareStatement(sql);
-//				statement.setInt(1, customerID);
-//				statement.setInt(2, s.);
-//				statement.executeUpdate();
-//				sql = "SELECT * FROM Order WHERE customerID = ?";
-//				statement = c.prepareStatement(sql);
-//				statement.setInt(1, customerID);
-//				ResultSet result = statement.executeQuery(); 			
-//				while (result.next()) 
-//				{
-//					o.setCustomerID(result.getInt("customerID"));
-//					System.out.println("ORDER ID2 = " + o.customerID);
-//					o.setRestaurantID(restaurantID);
-//					o.setOrderConfirmation(Restaurant.changeToBool(result.getString("orderConfirmation")));
-//					o.setTipAmount(result.getDouble("tipAmount"));					
-//				}				
-//				
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return o;	
-//	}
-//	
+	public void createOrder(Connection c, ShoppingCart s)
+	{
+		PreparedStatement statement;
+		System.out.println("ORDER: " + s.getCustomerID() + " " + s.getRestaurantID(c));
+		
+		try {
+				String sql = "INSERT INTO Order (customerID, RestaurantID) VALUES (?,?)";
+				statement = c.prepareStatement(sql);
+				statement.setInt(1, s.getCustomerID());
+				statement.setInt(2, s.getRestaurantID(c));
+				statement.executeUpdate();
+				sql = "SELECT * FROM Order WHERE customerID = ?";
+				statement = c.prepareStatement(sql);
+				statement.setInt(1, s.getCustomerID());
+				ResultSet result = statement.executeQuery(); 			
+				while (result.next()) 
+				{
+					this.setOrderID(result.getInt("orderID"));
+					this.setCustomerID(result.getInt("customerID"));
+					this.setRestaurantID(result.getInt("restaurantID"));
+					this.setOrderConfirmation(Restaurant.changeToBool(result.getString("orderConfirmation")));
+					this.setTipAmount(result.getDouble("tipAmount"));					
+				}				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public int getOrderID() {
 		return orderID;
 	}
@@ -59,7 +57,7 @@ public class Order {
 	public void setRestaurantID(int restaurantID) {
 		this.restaurantID = restaurantID;
 	}
-	public boolean isOrderConfirmation() {
+	public boolean getOrderConfirmation() {
 		return orderConfirmation;
 	}
 	public void setOrderConfirmation(boolean orderConfirmation) {

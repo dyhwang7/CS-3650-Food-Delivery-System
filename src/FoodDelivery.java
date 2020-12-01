@@ -26,7 +26,7 @@ public class FoodDelivery {
 			Customer customer = new Customer();
 			//customer.createCustomer(c, "123 South St", "123-456-7890", "dy", "dy@mail.net", "123abc");
 			boolean verified = customer.customerAuthentication(c, "r5dk9fr5tpp@mail.net", "56789DEF");
-			System.out.println(customer.getDeliveryAddress() + " " + customer.getPhoneNum() + " " + customer.getCustomerName() + " " + customer.getCustomerEmail() + customer.getCustomerPassword());
+			System.out.println(customer.getCustomerID() + " " + customer.getDeliveryAddress() + " " + customer.getPhoneNum() + " " + customer.getCustomerName() + " " + customer.getCustomerEmail() + customer.getCustomerPassword());
 			System.out.println(verified);
 			Driver d = new Driver ();
 			d.getDriver(c);
@@ -51,6 +51,17 @@ public class FoodDelivery {
 		s.createCart(c, 3);
 		//s.emptyCart(c, 1);
 		System.out.println(s.getRestaurantID(c));
+		
+		Order o = new Order();
+		o.createOrder(c, s);
+		System.out.println("ORDER RESULT: " + o.getOrderID() + " " + o.getCustomerID() + " " + o.getRestaurantID() + " " + o.getOrderConfirmation() + " " + o.getTipAmount());
+		
+		CreditCard cc = new CreditCard();
+		cc.addCreditCard(c, 7, "12345", "04/23", "dy", 123, "123 s st", "pomona", "CA", 90650);
+		System.out.println("CARD ID CHECK: " + cc.existsCardID(c, "5266264206465619"));
+		System.out.println("CARD AUTHENTICTAION: " + cc.creditCardAuthentication(c, 2, "5266264206465619", 294));
+		
+		
 		ac.endConnection();
 		
 		

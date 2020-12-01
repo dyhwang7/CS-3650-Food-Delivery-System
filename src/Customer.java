@@ -1,10 +1,11 @@
 import java.sql.*;
 public class Customer {
-	String deliveryAddress;
-	String phoneNum;
-	String customerName;
-	String customerEmail;
-	String customerPassword;	
+	private int customerID;
+	private String deliveryAddress;
+	private String phoneNum;
+	private String customerName;
+	private String customerEmail;
+	private String customerPassword;	
 	
 	Customer ()
 	{
@@ -37,6 +38,7 @@ public class Customer {
 			e.printStackTrace();
 		}
 	}
+
 	public boolean customerAuthentication(Connection c, String email, String pw)
 	{
 		String sql = "SELECT * FROM Customer WHERE customerEmail= ?";
@@ -60,11 +62,12 @@ public class Customer {
 				statement.setString(1,email);			
 				ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all
 				while (result.next()) {
-					setDeliveryAddress(result.getString("deliveryAddress"));
-					setPhoneNum(result.getString("phoneNum"));
-					setCustomerName(result.getString("customerName"));
-					setCustomerEmail(result.getString("customerEmail"));
-					setCustomerPassword(result.getString("customerPassword"));
+					this.setCustomerID(result.getInt("customerID"));
+					this.setDeliveryAddress(result.getString("deliveryAddress"));
+					this.setPhoneNum(result.getString("phoneNum"));
+					this.setCustomerName(result.getString("customerName"));
+					this.setCustomerEmail(result.getString("customerEmail"));
+					this.setCustomerPassword(result.getString("customerPassword"));
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -92,6 +95,12 @@ public class Customer {
 		return nextAvailableID;
 	}
 
+	public int getCustomerID() {
+		return customerID;
+	}
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
+	}
 	public String getDeliveryAddress() {
 		return deliveryAddress;
 	}
