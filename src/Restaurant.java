@@ -23,7 +23,7 @@ public class Restaurant {
 	
 	public Restaurant getRestaurant(Connection c, int rID)
 	{
-		String sql = "SELECT * FROM Restaurant WHERE restaurantID like ?";
+		String sql = "SELECT * FROM Restaurant WHERE restaurantID = ?";
 		Restaurant r= new Restaurant();
 		
 		PreparedStatement statement = null;

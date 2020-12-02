@@ -80,11 +80,37 @@ public class CreditCard {
 		else
 			return false;			
 	}
+	
+	public String lastFourDigits(Connection c, int customerID)
+	{	String lastFourDigits = "";
+		String sql = "SELECT * FROM creditCard WHERE customerID= ?";
+		PreparedStatement statement = null;
+		try {
+			statement = c.prepareStatement(sql);
+			statement.setInt(1,customerID);			
+			ResultSet result = statement.executeQuery(); 
+			while (result.next()) {
+				lastFourDigits = result.getString("cardID");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		lastFourDigits = lastFourDigits.substring(lastFourDigits.length()-4);
+		return lastFourDigits;
+	}	
+	
 	public int getPaymentID() {
 		return paymentID;
 	}
 	public void setPaymentID(int paymentID) {
 		this.paymentID = paymentID;
+	}
+	public int getCustomerID() {
+		return customerID;
+	}
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
 	}
 	public String getCardID() {
 		return cardID;
