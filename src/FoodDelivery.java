@@ -53,6 +53,7 @@ public class FoodDelivery {
 		System.out.println(s.getRestaurantID(c));
 		
 		Order o = new Order();
+		o.createOrder(c, s);
 		o.setOrderConfirmation(false);
 		o.updateOrderConfirmation(c);
 		System.out.println("ORDER RESULT: " + o.getOrderID() + " " + o.getCustomerID() + " " + o.getRestaurantID() + " " + o.getOrderConfirmation() + " " + o.getTipAmount());
@@ -62,6 +63,8 @@ public class FoodDelivery {
 		System.out.println("CARD ID CHECK: " + cc.existsCardID(c, "5266264206465619"));
 		System.out.println("CARD AUTHENTICTAION: " + cc.creditCardAuthentication(c, 2, "5266264206465619", 294));
 		System.out.println(cc.lastFourDigits(c, 2));
+		cc.getCreditCard(c);
+		System.out.println("CC: " + cc.getCardID() + " " +cc.getCvvNum() );
 		
 		
 		ac.endConnection();

@@ -34,7 +34,56 @@ public class CreditCard {
 				e.printStackTrace();
 			}
 		}
+		else 
+		{
+			try {
+				String sql = "SELECT * FROM creditCard WHERE cardID = ?";
+				PreparedStatement statement = null;			
+				statement = c.prepareStatement(sql);
+				statement.setString(1,cardID);			
+				ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
+				while (result.next()) {
+					this.setPaymentID(result.getInt("paymentID"));
+					this.setCustomerID(result.getInt("customerID"));
+					this.setCardID(result.getString("cardID"));
+					this.setExpirationDate(result.getString("expirationDate"));
+					this.setCardholderName(result.getString("cardholderName"));
+					this.setCvvNum(result.getInt("cvvNum"));
+					this.setAddress(result.getString("address"));
+					this.setCity(result.getString("city"));
+					this.setState(result.getString("state"));
+					this.setZip(result.getInt("zip"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}				
+		}
 	}
+	public void getCreditCard(Connection c)
+	{
+		try {
+			String sql = "SELECT * FROM creditCard WHERE customerID = ?";
+			PreparedStatement statement = null;			
+			statement = c.prepareStatement(sql);
+			statement.setInt(1,this.getCustomerID());			
+			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
+			while (result.next()) {
+				this.setPaymentID(result.getInt("paymentID"));
+				this.setCardID(result.getString("cardID"));
+				this.setExpirationDate(result.getString("expirationDate"));
+				this.setCardholderName(result.getString("cardholderName"));
+				this.setCvvNum(result.getInt("cvvNum"));
+				this.setAddress(result.getString("address"));
+				this.setCity(result.getString("city"));
+				this.setState(result.getString("state"));
+				this.setZip(result.getInt("zip"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}	
 	public boolean existsCardID(Connection c, String cardID)
 	{
 		boolean cardCheck = false;
