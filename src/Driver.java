@@ -23,7 +23,6 @@ public class Driver {
 			ResultSet rs = s.executeQuery(sql);
 			rs.last();
 			count = rs.getRow();
-
 			System.out.println("Count is: " + count);
 
 		} catch (SQLException e) {
@@ -32,7 +31,6 @@ public class Driver {
 		}
 		int randDriver = (int)(Math.random()*(count)+1);
 		System.out.println(randDriver);
-		
 		try {
 			String sql = "SELECT * FROM Driver WHERE driverID = ?";
 			PreparedStatement statement = null;			

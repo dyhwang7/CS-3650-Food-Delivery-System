@@ -110,7 +110,7 @@ public class ShoppingCart {
 	public ArrayList<Item> getCartItems(Connection c, int customerID)
 	{
 		ArrayList<Item> cartItems = new ArrayList<Item>();
-		String sql = "SELECT * FROM Item I, shoppingCart S, cartItem C WHERE S.customerID like ? "
+		String sql = "SELECT * FROM Item I, shoppingCart S, cartItem C WHERE S.customerID = ? "
 				+ "AND S.cartID = C.cartID AND C.itemID = I.itemID";
 		PreparedStatement statement = null;
 		try {
@@ -130,7 +130,7 @@ public class ShoppingCart {
 	public double getCartTotal(Connection c, int customerID)
 	{	
 		double total = 0;
-		String sql = "SELECT * FROM Item I, shoppingCart S, cartItem C WHERE S.customerID like ? "
+		String sql = "SELECT * FROM Item I, shoppingCart S, cartItem C WHERE S.customerID = ? "
 				+ "AND S.cartID = C.cartID AND C.itemID = I.itemID";
 		PreparedStatement statement = null;
 		try {
