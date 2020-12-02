@@ -8,11 +8,11 @@ public class Order {
 	private boolean orderConfirmation;
 	private double tipAmount;
 	
-	Order ()
+	public Order ()
 	{
 		
 	}
-	Order (int oID, int cID, int rID, boolean oc, double tip)
+	public Order (int oID, int cID, int rID, boolean oc, double tip)
 	{
 		orderID = oID;
 		customerID = cID;

@@ -21,7 +21,12 @@ public class FoodDelivery {
 			
 			Restaurant r = new Restaurant();
 			r.searchRestaurant(c, "%Jessie%");
-			r.showAllRestaurants(c);
+			ArrayList <Restaurant> r1 = new ArrayList <Restaurant>();
+			r1 = r.showAllRestaurants(c);
+			for (Restaurant i : r1)
+			{
+				System.out.println(i.getRestaurantNum());
+			}
 			
 			Customer customer = new Customer();
 //			customer.createCustomer(c, "123 South St", "123-456-7890", "dy", "dy@mail.net", "123abc");

@@ -4,44 +4,46 @@ public class Restaurant {
 	private int restaurantID;
 	private String restaurantName;
 	private String restaurantAddress;
+	private String restaurantNum;
 	private boolean operational;
 	
 	Restaurant(){
 		restaurantID = 0;
 		restaurantName = "";
 		restaurantAddress = "";
+		restaurantNum = "";
 		operational = false; 
 	}
 	
-	Restaurant(int rID, String rName, String rAddress, boolean o)
+	Restaurant(int rID, String rName, String rAddress, String rNum, boolean o)
 	{
 		restaurantID = rID;
 		restaurantName = rName;
 		restaurantAddress = rAddress;
+		restaurantNum = rNum;
 		operational = o;
 	}
 	
-	public Restaurant getRestaurant(Connection c, int rID)
+	public void getRestaurant(Connection c, int rID)
 	{
 		String sql = "SELECT * FROM Restaurant WHERE restaurantID = ?";
-		Restaurant r= new Restaurant();
-		
+			
 		PreparedStatement statement = null;
 		try {
 			statement = c.prepareStatement(sql);
 			statement.setInt(1,rID);	
 			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
 			while (result.next()) {
-				r.restaurantID=result.getInt("restaurantID");
-				r.restaurantName = result.getString("restaurantName");
-				r.restaurantAddress = result.getString("restaurantAddress");
-				r.operational = changeToBool(result.getString("operational"));
+				this.restaurantID=result.getInt("restaurantID");
+				this.restaurantName = result.getString("restaurantName");
+				this.restaurantAddress = result.getString("restaurantAddress");
+				this.restaurantNum = result.getString("restaurantNum");
+				this.operational = changeToBool(result.getString("operational"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return r;	
 	}
 	
 	public ArrayList<Restaurant> showAllRestaurants(Connection c) {
@@ -53,7 +55,7 @@ public class Restaurant {
 			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
 			while (result.next()) {
 				showAll.add(new Restaurant(result.getInt("restaurantID"),result.getString("restaurantName"),
-						result.getString("restaurantAddress"), changeToBool(result.getString("operational"))));
+						result.getString("restaurantAddress"), result.getString("restaurantNum"),changeToBool(result.getString("operational"))));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -73,7 +75,7 @@ public class Restaurant {
 			ResultSet result = statement.executeQuery(); //this could be returned instead if we want to see all 
 			while (result.next()) {
 				searchResult.add(new Restaurant(result.getInt("restaurantID"),result.getString("restaurantName"),
-						result.getString("restaurantAddress"),changeToBool(result.getString("operational"))));
+						result.getString("restaurantAddress"),result.getString("restaurantNum"),changeToBool(result.getString("operational"))));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -118,6 +120,14 @@ public class Restaurant {
 
 	public void setRestaurantAddress(String restaurantAddress) {
 		this.restaurantAddress = restaurantAddress;
+	}
+
+	public String getRestaurantNum() {
+		return restaurantNum;
+	}
+
+	public void setRestaurantNum(String restaurantNum) {
+		this.restaurantNum = restaurantNum;
 	}
 
 	public boolean isOperational() {
